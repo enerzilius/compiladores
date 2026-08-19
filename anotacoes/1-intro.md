@@ -12,6 +12,20 @@ Outros sistemas podem ser classificados como *compiladores*:
 - **Markdown** com *pandoc*
 - **Latex**
 
+# Princípios Fundamentaisa
+
+Precisamos:
+- Preservar o significado do programa
+- Melhorar o programa de alguma forma perceptível: facilitar o desenvolvimento, 
+
+## Principais estruturas de dados
+- Marcas (tokens)
+- Árvore Sintática
+- Tabela de Símbolos
+- Tabela de Literais
+- Código intermediário
+- Arquivos temporários
+
 ## Grandes Fases de Compilação
 - Análise Léxica
 - Análise Sintática
@@ -19,3 +33,11 @@ Outros sistemas podem ser classificados como *compiladores*:
 - Otimização de código fonte
 - Geração de código intermediário
 - Otimização do código alvo
+
+## Outros Aspectos de um compilador
+- Análise e Síntese
+- Front e Back
+- Passadas
+- Definição de linguagem e compiladores
+- Opções e interfaces de um compilador
+- Tratamento de erros
