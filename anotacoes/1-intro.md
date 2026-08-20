@@ -41,3 +41,13 @@ Precisamos:
 - Definição de linguagem e compiladores
 - Opções e interfaces de um compilador
 - Tratamento de erros
+
+## Fases
+1. Código Fonte -> Sistema de Varredura (Anlaíse Léxica)
+1. Marcas (Tokens) -> Analisador Sintático
+1. Árvore Sintática -> Analisador Semântico
+1. Árvore Anorada -> Otimizador de código fonte
+1. Código Intermediário -> Gerador de Código
+1. Código-alvo -> Otimizador de código-alvo
+1. Código-alvo -> Executado
+

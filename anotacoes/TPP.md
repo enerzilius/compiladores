@@ -1,0 +1,7 @@
+- Tipo básico de dados suportado: inteiro e flutuante (null existe caso uma função não retorne nada)
+- Vetores uni e bi dimensionais: v[], v[]\[]
+- Variáveis tem que ter um dos dois tipos
+- Se uma função não tiver um tipo é tratado como procedure
+- Linguagem (quase) fortemente tipificada, nem todos os erros são tipificados mas deve sempre ter avisos
+- Operadores aritméticos: +, -, *, / 
+- Operadores Lógics:  &&, || e !
