@@ -1,3 +1,6 @@
+{Aluno: Eber Felipe Barrotti Louback}
+{RA: 2251655}
+
 inteiro linear(inteiro: dados[], inteiro: tamanho, inteiro: alvo)
   inteiro: i
   i := 0
@@ -23,15 +26,15 @@ inteiro binario(inteiro: dados[], inteiro: tamanho, inteiro: alvo)
       mid = (low+(high - low)/ 2);
 
       se dados[mid] = target então 
-        returna(mid)
+        retorna(mid)
       fim
 
       se dados[mid] < alvo então 
-        low = mid + 1;
+        low = mid + 1
       senão 
-        high = mid - 1;
+        high = mid - 1
       fim
     até low <= high
 
-    returna(-1)
+    retorna(-1)
 }
