@@ -8,7 +8,7 @@ from ply import lex
 
 # List of token names.   This is always required
 tokens = (
-    "ID",
+    # "ID",
     "AND",
     "OR",
     "NOT",
@@ -39,12 +39,12 @@ t_LPAREN = r"\("
 t_RPAREN = r"\)"
 
 
-def t_ID(t):
-    t.type = "ID"
-    return t
-
-
-t_ID.__doc__ = id
+# def t_ID(t):
+#    t.type = "ID"
+#    return t
+#
+#
+# t_ID.__doc__ = id
 
 
 # A regular expression rule with some action code
@@ -72,22 +72,3 @@ def t_error(t):
 
 # Build the lexer
 lexer = lex.lex()
-
-# Test it out
-data = """
-3 + 4 * 10
-
-a || b
-c && d
-logical_variable1 ! logical_variable2
-"""
-
-# Give the lexer some input
-lexer.input(data)
-
-# Tokenize
-while True:
-    tok = lexer.token()
-    if not tok:
-        break  # No more input
-    print(tok)
