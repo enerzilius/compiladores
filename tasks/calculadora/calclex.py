@@ -5,10 +5,11 @@
 # numbers and +,-,*,/
 # ------------------------------------------------------------
 from ply import lex
+from ply.lex import TOKEN
 
 # List of token names.   This is always required
 tokens = (
-    # "ID",
+    "ID",
     "AND",
     "OR",
     "NOT",
@@ -19,6 +20,7 @@ tokens = (
     "DIVIDE",
     "LPAREN",
     "RPAREN",
+    "EQUALS",
 )
 
 # reconhecimento de identificadores
@@ -37,14 +39,13 @@ t_TIMES = r"\*"
 t_DIVIDE = r"/"
 t_LPAREN = r"\("
 t_RPAREN = r"\)"
+t_EQUALS = r"="
 
 
-# def t_ID(t):
-#    t.type = "ID"
-#    return t
-#
-#
-# t_ID.__doc__ = id
+@TOKEN(id)
+def t_ID(t):
+    t.type = "ID"
+    return t
 
 
 # A regular expression rule with some action code
@@ -66,7 +67,7 @@ t_ignore = " \t"
 
 # Error handling rule
 def t_error(t):
-    print("Illegal character '%s'" % t.value[0])
+    print(f"Illegal character {t.value[0]}")
     t.lexer.skip(1)
 
 

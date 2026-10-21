@@ -3,51 +3,43 @@
 from calclex import tokens
 from ply import yacc
 
-start = "or_expr"
+precedence = (
+    ("left", "LPAREN", "RPAREN"),
+    ("left", "AND", "OR"),
+    ("left", "PLUS", "MINUS"),
+    ("left", "TIMES", "DIVIDE"),
+    ("right", "EQUALS"),
+    ("right", "NOT"),
+)
+
+variables = {}
 
 
-def p_or_expr(p):
-    "or_expr : or_expr OR and_expr"
-    p[0] = bool(p[1] or p[3])
+def p_statement(p):
+    """statement : statement expression
+    | expression"""
+    if len(p) == 3:
+        p[0] = p[2]
+    else:
+        p[0] = p[1]
 
 
-def p_or_expr_and(p):
-    "or_expr : and_expr"
-    p[0] = p[1]
-
-
-def p_and_expr(p):
-    "and_expr : and_expr AND not_expr"
-    p[0] = bool(p[1] and p[3])
-
-
-def p_and_expr_not(p):
-    "and_expr : not_expr"
-    p[0] = p[1]
-
-
-def p_not_expr(p):
-    "not_expr : NOT not_expr"
-    p[0] = not p[2]
-
-
-def p_not_expr_expression(p):
-    "not_expr : expression"
-    p[0] = p[1]
+def p_assign_expr(p):
+    "expression : ID EQUALS expression"
+    variables[p[1]] = p[3]
+    p[0] = p[3]
 
 
 def p_expression(p):
     """expression : expression PLUS term
-    | expression MINUS term"""
-    if p[2] == "+":
+    | expression MINUS term
+    | term"""
+    if len(p) < 3:
+        p[0] = p[1]
+    elif p[2] == "+":
         p[0] = p[1] + p[3]
     elif p[2] == "-":
         p[0] = p[1] - p[3]
-
-
-def p_expression_term(p):
-    "expression : term"
-    p[0] = p[1]
 
 
 def p_term(p):
@@ -57,6 +49,21 @@ def p_term(p):
         p[0] = p[1] * p[3]
     elif p[2] == "/":
         p[0] = p[1] / p[3]
+
+
+def p_term_and(p):
+    "term : term AND factor"
+    p[0] = bool(p[1] and p[3])
+
+
+def p_term_or(p):
+    "term : term OR factor"
+    p[0] = bool(p[1] or p[3])
+
+
+def p_term_not(p):
+    "term : NOT term"
+    p[0] = bool(not p[2])
 
 
 def p_term_factor(p):
@@ -69,14 +76,14 @@ def p_factor_num(p):
     p[0] = p[1]
 
 
-def p_factor_paren(p):
-    "factor : LPAREN or_expr RPAREN"  # was: LPAREN expression RPAREN
-    p[0] = p[2]
-
-
 def p_factor_expr(p):
     "factor : LPAREN expression RPAREN"
     p[0] = p[2]
+
+
+def p_factor_id(p):
+    "factor : ID"
+    p[0] = variables[p[1]]
 
 
 def p_error(p):
