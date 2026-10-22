@@ -21,6 +21,7 @@ tokens = (
     "LPAREN",
     "RPAREN",
     "EQUALS",
+    "NEGATIVE"
 )
 
 # reconhecimento de identificadores

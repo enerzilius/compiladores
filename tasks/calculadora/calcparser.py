@@ -4,12 +4,13 @@ from calclex import tokens
 from ply import yacc
 
 precedence = (
-    ("left", "LPAREN", "RPAREN"),
-    ("left", "AND", "OR"),
+    ("left", "OR"),
+    ("left", "AND"),
+    ("right", "NOT", "NEGATIVE"),
+    ("right", "EQUALS"),
     ("left", "PLUS", "MINUS"),
     ("left", "TIMES", "DIVIDE"),
-    ("right", "EQUALS"),
-    ("right", "NOT"),
+    ("left", "LPAREN", "RPAREN"),
 )
 
 variables = {}
@@ -52,18 +53,23 @@ def p_term(p):
 
 
 def p_term_and(p):
-    "term : term AND factor"
+    "term : factor AND term"
     p[0] = bool(p[1] and p[3])
 
 
 def p_term_or(p):
-    "term : term OR factor"
+    "term : factor OR term"
     p[0] = bool(p[1] or p[3])
 
 
 def p_term_not(p):
     "term : NOT term"
     p[0] = bool(not p[2])
+
+
+def p_expression_negative(p):
+    "expression : MINUS expression"
+    p[0] = - p[2]
 
 
 def p_term_factor(p):
